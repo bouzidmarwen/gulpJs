@@ -65,6 +65,6 @@ gulp.task( 'deploy', function () {
 gulp.task('watch', function () {
   gulp.watch('css/*.scss', ['sass']); // Watch The Css Task
   gulp.watch('js/*.js', ['js']); // Watch The Js Task
-  gulp.watch('build/**/*.*', ['compress']); //Watch The Compress Task
-  gulp.watch('build/**/*.*', ['deploy']); // Watch The Deploy Task
+  //gulp.watch('build/**/*.*', ['compress']); //Watch The Compress Task
+  //gulp.watch('build/**/*.*', ['deploy']); // Watch The Deploy Task
 });
