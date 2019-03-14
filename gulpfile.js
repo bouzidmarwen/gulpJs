@@ -35,7 +35,7 @@ gulp.task('js', function () {
 // Compress Files Task
 gulp.task('compress', function () {
   return gulp.src('build/**/*.*') // Get All Files With Any Extension (*.*) Located On Any Directory (**) Under Build 
-            .pipe(zip('MyCompressedWebsite')) // Create A Zip File Called MyCompressedWebsite
+            .pipe(zip('MyCompressedWebsite.zip')) // Create A Zip File Called MyCompressedWebsite
             .pipe(gulp.dest('.')) // Send The File To The Destination At The Same Level As Gulpfile (.)
             .pipe(notify('Compresseion Task Is Done !')) // Show Notification
 
@@ -65,6 +65,6 @@ gulp.task( 'deploy', function () {
 gulp.task('watch', function () {
   gulp.watch('css/*.scss', ['sass']); // Watch The Css Task
   gulp.watch('js/*.js', ['js']); // Watch The Js Task
-  //gulp.watch('build/**/*.*', ['compress']); //Watch The Compress Task
+  gulp.watch('build/**/*.*', ['compress']); //Watch The Compress Task
   //gulp.watch('build/**/*.*', ['deploy']); // Watch The Deploy Task
 });
