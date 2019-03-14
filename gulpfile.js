@@ -58,13 +58,10 @@ gulp.task( 'deploy', function () {
             .pipe( conn.newer( '/public_html' ) ) // only upload newer files (Don't Upload Non Modified Files)
             .pipe( conn.dest( '/public_html' ) ) // Send Files Under The public_html Folder
             .pipe(notify('Files Are Uploaded !')) // Show Notification
-            .pipe(livereload()) // Reload Page After Upload Files
-} );
+});
 
 // Watch Task
 gulp.task('watch', function () {
   gulp.watch('css/*.scss', ['sass']); // Watch The Css Task
   gulp.watch('js/*.js', ['js']); // Watch The Js Task
-  gulp.watch('build/**/*.*', ['compress']); //Watch The Compress Task
-  //gulp.watch('build/**/*.*', ['deploy']); // Watch The Deploy Task
 });
