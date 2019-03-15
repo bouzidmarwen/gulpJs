@@ -4,3 +4,8 @@
   position: relative;
   color: #00f;
 }
+@media screen and (min-width: 480px) {
+  .footer {
+    color: #0f0;
+  }
+}

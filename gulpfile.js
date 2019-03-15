@@ -7,20 +7,30 @@ var notify = require('gulp-notify');
 var sourcemaps = require('gulp-sourcemaps');
 var zip = require('gulp-zip');
 var ftp = require( 'vinyl-ftp' );
+var cssInfo = require('gulp-css-info');
+var combineMq = require('gulp-combine-mq');
 var livereload = require('gulp-livereload');
 
 // Css Task
 gulp.task('sass', function () {
   return gulp.src('./css/*.scss') // Get The Source Files
   .pipe(sourcemaps.init()) // To Initialize The Sourcemap ( For Getting The Source (Line) Of Code In The Scss File )
-  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError)) // Compile Sass Code To Css Code, Compress The Executed Code  & Log Errors
+  .pipe(sass().on('error', sass.logError)) // Compile Sass Code To Css Code, Compress The Executed Code  & Log Errors
   .pipe(prefix('last 2 versions')) // Add Prefixes (Css3) For 2 Last versions of Browsers
+  .pipe(combineMq()) // Combine Media Queries
   .pipe(concat('main.css')) // Concat Css Files Into One File
   .pipe(sourcemaps.write('maps')) // Create The Sourcemap In a Folder Named maps ( if we don't write the map in a precise destination it will be created in our file generated which make the size of the file more bigger )
   .pipe(gulp.dest('./build/css')) // Send The Files To The Destination
   .pipe(notify('Css Task Is Done !')) // Show Notification
   .pipe(livereload()) // Reload Page When Save Files
 });
+
+// Css To Html Info
+gulp.task('cssInfo', () =>
+  gulp.src('build/css/*.css')
+    .pipe(cssInfo())
+    .pipe(gulp.dest('./docs'))
+)
 
 // Js Task
 gulp.task('js', function () {
