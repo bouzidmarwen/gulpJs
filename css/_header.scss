@@ -1,6 +1,11 @@
 header {
   background-color: #a06ee1
 }
+.icon-home {
+  background-image: url($d-next-image);
+  width: $d-next-width;
+  height: $d-next-height;
+}
 @media screen and (min-width: 480px) {
   header {
     background-color: #f00

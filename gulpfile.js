@@ -9,6 +9,8 @@ var zip = require('gulp-zip');
 var ftp = require( 'vinyl-ftp' );
 var cssInfo = require('gulp-css-info');
 var combineMq = require('gulp-combine-mq');
+var spritesmith = require('gulp.spritesmith');
+var gulpif = require("gulp-if");
 var livereload = require('gulp-livereload');
 
 // Css Task
@@ -40,6 +42,18 @@ gulp.task('js', function () {
   .pipe(gulp.dest('./build/js')) // Send The Files To The Destination
   .pipe(notify('JS Task Is Done !')) // Show Notification
   .pipe(livereload()) // Reload Page When Save Files
+});
+
+// Sprite Task
+gulp.task('sprite', function () {
+  return gulp.src('images/*.png')
+                        .pipe(spritesmith({ // Generate sprite image & Css file For That Sprite
+                          imgName: 'sprite.png', // Sprite Image Name 
+                          cssName: 'sprite.scss', // Sprite Css Name (if we put the extension .scss it make the code sass else .css it make the code a simple Css)
+                        }))
+                        .pipe(gulpif('*.png', gulp.dest('./images/sprite'))) // Destination of the generated sprite image
+                        .pipe(gulpif('*.scss', gulp.dest('./css'))) // Destination of the generated css (or scss) file
+                        .pipe(notify('Sprite Task Is Done !')) // Show Notification
 });
 
 // Compress Files Task
